@@ -3,6 +3,8 @@
 ###################
 # script settings #
 ###################
+# source
+source /scripts/tgz/cow
 # backup path
 bp="/mnt/backup/tgz/"
 # temp file
@@ -15,16 +17,6 @@ log="$bp/backup-zimbra-tgz-daily-log-$cd"
 cron="$bp/cron"
 # max children
 mc=5
-# check of work
-cow ()      
-{
-    if [ $? -eq 0 ]; then
-    echo -e "\n[OK]\n" >> "$log"
-    else
-    echo -e "\n[FAIL]\n" >> "$log"
-    echo "The job backup-zimbra-tgz-daily was not executed. For more details, see the log" | /usr/bin/mutt -F /scripts/tgz/.muttrc -s "[Failed] The job backup-zimbra-tgz-daily was not executed" v.pupkin@test.local -a $log
-    fi
-}
 # job counter
 jcf ()
 {
@@ -44,11 +36,7 @@ cow
 for mb in $( cat $tf)
 do
     jcf
-    # backup each mailbox
-    echo "backup $mb" >> "$log"
-    /opt/zimbra/bin/zmmailbox -z -m "$mb" getRestUrl "//?fmt=tgz" > "$bp/$mb.tgz"
-    cow
-    echo "complete backup $mb" >> "$log"
+    /scripts/tgz/backup-zimbra-tgz-daily-child.sh $mb $log $bp
     while [ $jcv -ge $mc ]
     do
         jcf
