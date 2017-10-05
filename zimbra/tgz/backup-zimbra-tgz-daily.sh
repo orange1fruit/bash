@@ -24,7 +24,7 @@ cow ()
     echo -e "\n[OK]\n" >> "$log"
     else
     echo -e "\n[FAIL]\n" >> "$log"
-    echo "The job backup-zimbra-tgz-daily was not executed. For more details, see the log" | /usr/bin/mutt -F /scripts/tgz/.muttrc -s "[Failed] The job backup-zimbra-tgz-daily was not executed" r.kovenya@ruan.local -a $log
+    echo "The job backup-zimbra-tgz-daily was not executed. For more details, see the log" | /usr/bin/mutt -F /scripts/tgz/.muttrc -s "[Failed] The job backup-zimbra-tgz-daily was not executed" test@test.local -a $log
     fi
 }
 # script body #
@@ -79,6 +79,6 @@ else
 body="The job backup-zimbra-tgz-daily is executed. For more details, see the log\n\nFree space on backup datastore - ${fsbd} / ${fspbd}%\n\nFree space on storage datastore - ${fssd} / ${fspsd}%\n\n${total_time}"  
 head="[Success] The job backup-zimbra-tgz-daily is executed"
 fi
-echo -e $body | /usr/bin/mutt -F /scripts/tgz/.muttrc -s "$head" r.kovenya@ruan.local -a $log $cron
+echo -e $body | /usr/bin/mutt -F /scripts/tgz/.muttrc -s "$head" test@test.local -a $log $cron
 
-# orangefruit v0.4
+# orangefruit v0.5
