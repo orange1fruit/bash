@@ -31,7 +31,7 @@ cow ()
 echo "Start of job - $(date +%F) $(date +%T)" >> "$log"
 # begin time
 bt="$(date +%s)"
-# Create list closed & locked mailbox
+# Create list active mailbox
 echo "Create list active mailbox" >> "$log"
 su zimbra -c /opt/zimbra/bin/zmaccts | grep active | awk '{print $1}' | grep @ > "$tf"
 cow
@@ -81,4 +81,4 @@ head="[Success] The job backup-zimbra-tgz-daily is executed"
 fi
 echo -e $body | /usr/bin/mutt -F /scripts/tgz/.muttrc -s "$head" test@test.local -a $log $cron
 
-# orangefruit v0.5
+# orangefruit v0.5.1
